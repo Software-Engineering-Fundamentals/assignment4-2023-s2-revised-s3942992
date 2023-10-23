@@ -136,7 +136,7 @@ public class LibraryCard {
             return can_borrow;
         }
 
-        if (!book.getStatus()) {                                                       //checking the status if book is available/unavailable to borrow
+        if (!book.getStatus()) {                                                       //checking the status if book is unavailable to borrow, then dont issue
             can_borrow = false; 
         }
 
