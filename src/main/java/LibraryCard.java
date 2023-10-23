@@ -92,10 +92,58 @@ public class LibraryCard {
      * Issue a new book
      * @param Book: book to borrow 
      * @return true if the book is successfully borrowed, false otherwise
+     * @throws IllegalBookIssueException
      */
 
-    public boolean issueBook(Book book){
-    	return false;
+    public boolean issueBook(Book book) throws IllegalBookIssueException {
+        boolean can_borrow = true;
+
+        int numBooksBorowed = 4;
+        List<Book> listofbook = this.getBooks();                       // Here we are making sure it returns false if more than 4 books are borrowed.
+        int countbook = listofbook.size();
+
+
+        if (countbook > numBooksBorowed) {                               // setting it so that it returns false
+            can_borrow = false;                                        
+            return can_borrow;
+        }
+        
+        Date issue_date = this.getIssueDate();
+        Date expiry_date = this.getExpiryDate();
+        boolean alreadyOver = issue_date.after(expiry_date);       // Here we are checking if the library card is valid
+
+        if (alreadyOver == true) {                       
+            can_borrow = false;
+            return can_borrow;
+        }
+
+        Date currentdate = new Date();
+        boolean alreadyOver2 = expiry_date.before(currentdate);           //We do this by making sure the expiry is before current date to retrun not valid
+        if (alreadyOver2 == true) {                       
+            can_borrow = false;
+            return can_borrow;
+        }
+
+        if (listofbook.contains(book)) {
+            throw new IllegalBookIssueException("this book is already issued");       //checking if the book is already on account.
+        }
+
+        double finepay = 0.00; 
+        Double fine = this.getFine();
+    
+        if (fine > finepay) {                                                          //not allowed to borrow if there is a fine present
+            can_borrow = false;
+            return can_borrow;
+        }
+
+        if (!book.getStatus()) {                                                       //checking the status if book is available/unavailable to borrow
+            can_borrow = false; 
+        }
+
+    
+
+    return can_borrow;                  //allow to borrow if conditions are met
+
    
     }
 

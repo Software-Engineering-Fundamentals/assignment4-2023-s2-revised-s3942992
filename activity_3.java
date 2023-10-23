@@ -30,28 +30,29 @@ public class Department {
     }
 
     
-    public boolean checkEmployee(int eID) {
+    public boolean checkEmployee(int eID) {            
 
 	int p=0;
 	for (int i = 0; i < this.employee.size(); i++){
-check=this.employee.get(i);
+check=this.employee.get(i);                            //check is undeclared and not initialised here 
+                                                    
             if (check==eID) {
-                p=1;
+                p=1;                                   // p is set to 1 when an employee is found but is quite difficult to understand here
             }
         }
 
-        if (p==1)
+        if (p==1)                                      // instead of p, maybe just directly return true here.  
 {
 System.out.println("Employee exists");
 return true;
 }
 else{
-System.out.println("Employee doesn't exists");
-return false;
+System.out.println("Employee doesn't exists");        // system.out.println is repeated
+return false;                                           // can print a single message outside loop with whatever result you get
 	    }
     }
 
-    
+
 
     public void assignNew(string temp2, int ID) {
         this.temp1.add(temp2);
